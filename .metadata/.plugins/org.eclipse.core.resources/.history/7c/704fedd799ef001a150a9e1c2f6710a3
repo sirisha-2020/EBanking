@@ -1,0 +1,81 @@
+package com.EBanking.Master;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.annotations.DataProvider;
+
+public class NewBranchPageDP 
+{
+	//Element Properties
+    @FindBy(xpath="//input[@id='txtbName']")
+	WebElement BraName;
+	@FindBy(xpath="//input[@id='txtAdd1']")
+	WebElement BraAdd1;
+	@FindBy(xpath="//input[@id='Txtadd2']")
+	WebElement BraAdd2;
+	@FindBy(xpath="//input[@id='txtadd3']")
+	WebElement BraAdd3;
+	@FindBy(xpath="//input[@id='txtArea']")
+	WebElement BraArea;
+	@FindBy(xpath="//input[@id='txtZip']")
+	WebElement BraZip;
+	@FindBy(xpath="//select[@id='lst_counrtyU']")
+	WebElement BraCntry;
+	@FindBy(xpath="//select[@id='lst_stateI']")
+	WebElement	BraState;
+	@FindBy(xpath="//select[@id='lst_cityI']")
+	WebElement BraCity;		
+	@FindBy(xpath="//input[@id='btn_insert']")
+	WebElement BraSub;
+//Element Methods
+	public void BranchDetails(String BName,String BAdd1,String BAdd2,String BAdd3,String Area,String Zip,String Ctry,String State,String City)
+	{
+		BraName.sendKeys(BName);
+		BraAdd1.sendKeys(BAdd1);
+		BraAdd2.sendKeys(BAdd2);
+		BraAdd3.sendKeys(BAdd3);
+		BraArea.sendKeys(Area);
+		BraZip.sendKeys(Zip);
+		Select Cntry=new Select(BraCntry);
+		Cntry.selectByVisibleText(Ctry);
+		Select Stat=new Select(BraState);
+		Stat.selectByVisibleText(State);
+		Select Cit=new Select(BraCity);
+		Cit.selectByVisibleText(City);
+		BraSub.click();
+	}
+	@DataProvider
+	public Object[][] BraData() 
+	{
+		  Object[][] obj=new Object[3][9];
+		  obj[0][0]="NZMPTSBI1";
+		  obj[0][1]="NZMPT";
+		  obj[0][2]="Secunderabad";
+		  obj[0][3]="Santoshpur";
+		  obj[0][4]="SRNagar";
+		  obj[0][5]="50090";
+		  obj[0][6]="INDIA";
+		  obj[0][7]="GOA";
+		  obj[0][8]="GOA";
+		  obj[1][0]="NZMPTBOI1";
+		  obj[1][1]="NZMPT";
+		  obj[1][2]="Secunderabad";
+		  obj[1][3]="Santoshpur";
+		  obj[1][4]="SRNagar";
+		  obj[1][5]="50090";
+		  obj[1][6]="INDIA";
+		  obj[1][7]="GOA";
+		  obj[1][8]="GOA";
+		  obj[2][0]="NZMPTBOB1";
+		  obj[2][1]="NZMPT";
+		  obj[2][2]="Secunderabad";
+		  obj[2][3]="Santoshpur";
+		  obj[2][4]="SRNagar";
+		  obj[2][5]="50090";
+		  obj[2][6]="INDIA";
+		  obj[2][7]="GOA";
+		  obj[2][8]="GOA";
+		return obj;
+	};
+}

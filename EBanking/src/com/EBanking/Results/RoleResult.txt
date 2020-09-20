@@ -1,0 +1,3 @@
+RName########RDesc########RType########Result
+ManagAU########ABank########E@@@@@Role Already existed
+GMgerAk########MBank########E@@@@@Role Already existed

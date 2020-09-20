@@ -1,0 +1,3 @@
+RName########RDesc########RType########Result
+ManagAU########ABank########E
+GMgerAk########MBank########E

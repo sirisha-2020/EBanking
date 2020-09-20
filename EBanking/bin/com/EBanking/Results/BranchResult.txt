@@ -1,0 +1,3 @@
+BName########Add1########Add2########Add3########Area########Zip########Cntry########State########City########Result
+SanathNagar2########SRNagar########line35########nearHospital########SRNagar########50090########INDIA########GOA########GOA@@@@@Branch name already Exist
+Somajipet2########SRNagar########line35########nearHospital########SRNagar########50090########INDIA########GOA########GOA@@@@@Branch name already Exist

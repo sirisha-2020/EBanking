@@ -1,0 +1,173 @@
+package com.EBanking.Master;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Library 
+{
+public static WebDriver driver;
+public static String ExpResult,ActResult;
+public static FileInputStream Fs;
+public static Properties Pr;
+public String OpenApp(String URL) throws IOException
+{
+	Fs=new FileInputStream("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\Properties\\Rep.properties");
+	Pr=new Properties();
+	Pr.load(Fs);
+	driver=new ChromeDriver();
+	//driver=new FirefoxDriver();
+	driver.manage().window().maximize();
+	driver.get(URL);
+	String ExpResult="Ranford Bank";
+	String ActResult=driver.findElement(By.xpath(Pr.getProperty("AppText"))).getText();
+	if(ExpResult.equalsIgnoreCase(ActResult))
+	{
+		System.out.println("Ranford Home Page Opened Successfully");
+	}
+	else
+	{
+		System.out.println("Ranford Home Page not Opened");
+	}
+	return "Ranford Launched";
+}
+public void AdminLogin(String UserName,String Password)
+{
+	driver.findElement(By.id(Pr.getProperty("AUid"))).sendKeys(UserName);
+	driver.findElement(By.id(Pr.getProperty("APwd"))).sendKeys(Password);
+	driver.findElement(By.id(Pr.getProperty("ALogin"))).click();
+	ExpResult ="Welcome to Admin";
+	ActResult=driver.findElement(By.xpath(Pr.getProperty("AText"))).getText();
+	if(ExpResult.equalsIgnoreCase(ActResult))
+	{
+		System.out.println("Admin Home Page Opened Successfully");
+	}
+	else
+	{
+		System.out.println("Admin Home Page not Opened");
+	}
+}
+public String BranchCreation(String BName,String Add1,String Add2,String Add3,String Area,String Zip,String Ctry,String Sta,String City) throws InterruptedException
+{
+	driver.findElement(By.xpath(Pr.getProperty("BraBut"))).click();
+	driver.findElement(By.xpath(Pr.getProperty("NewBraBu"))).click();
+	ExpResult ="New Branch Entry";
+	ActResult=driver.findElement(By.xpath(Pr.getProperty("BraText"))).getText();
+	if(ExpResult.equalsIgnoreCase(ActResult))
+	{
+		System.out.println("Admin Branch Page Opened Successfully");
+	}
+	else
+	{
+		System.out.println("Admin Branch Page not Opened");
+	}
+	driver.findElement(By.xpath(Pr.getProperty("BraName"))).sendKeys(BName);
+	driver.findElement(By.xpath(Pr.getProperty("BraAdd1"))).sendKeys(Add1);
+	driver.findElement(By.xpath(Pr.getProperty("BraAdd2"))).sendKeys(Add2);
+	driver.findElement(By.xpath(Pr.getProperty("BraAdd3"))).sendKeys(Add3);
+	driver.findElement(By.xpath(Pr.getProperty("BraArea"))).sendKeys(Area);
+	driver.findElement(By.xpath(Pr.getProperty("BraZip"))).sendKeys(Zip);
+	Select Cntry=new Select(driver.findElement(By.xpath(Pr.getProperty("BraCntry"))));
+	Cntry.selectByVisibleText(Ctry);
+	new Select(driver.findElement(By.xpath(Pr.getProperty("BraState")))).selectByVisibleText(Sta);
+	new Select(driver.findElement(By.xpath(Pr.getProperty("BraCity")))).selectByVisibleText(City);
+	driver.findElement(By.xpath(Pr.getProperty("BraSub"))).click();
+	Thread.sleep(3000);
+	ExpResult="Sucessfully";
+	ActResult =driver.switchTo().alert().getText();
+	if(ActResult.contains(ExpResult))
+	{
+		System.out.println("Branch Created");
+	}
+	else
+	{
+		System.out.println("Branch Already Exists");
+	}
+	driver.switchTo().alert().accept();
+	driver.findElement(By.xpath(Pr.getProperty("AHomeBut"))).click();
+	return ActResult;
+}
+public String RoleCreation(String RName,String RDesc,String RType) throws InterruptedException
+{
+	driver.findElement(By.xpath(Pr.getProperty("RolBut"))).click();
+	driver.findElement(By.xpath(Pr.getProperty("NewRolBut"))).click();
+	ExpResult ="New Role Insertion";
+	ActResult=driver.findElement(By.xpath(Pr.getProperty("RolText"))).getText();
+	if(ExpResult.equalsIgnoreCase(ActResult))
+	{
+		System.out.println("Admin Role Page Opened Successfully");
+	}
+	else
+	{
+		System.out.println("Admin Role Page not Opened");
+	}
+	//Role Creation
+	driver.findElement(By.xpath(Pr.getProperty("RolName"))).sendKeys(RName);
+	driver.findElement(By.xpath(Pr.getProperty("RolDesc"))).sendKeys(RDesc);
+	new Select(driver.findElement(By.xpath(Pr.getProperty("RolType")))).selectByVisibleText(RType);
+	driver.findElement(By.xpath(Pr.getProperty("RolSub"))).click();
+	Thread.sleep(3000);
+	ExpResult="Sucessfully";
+	ActResult =driver.switchTo().alert().getText();
+	if(ActResult.contains(ExpResult))
+	{
+		System.out.println("Role Created");
+	}
+	else
+	{
+		System.out.println("Role Already Exists");
+	}
+	driver.switchTo().alert().accept();
+	driver.findElement(By.xpath(Pr.getProperty("AHomeBut"))).click();
+	return ActResult;
+}
+public String EmployeeCreation(String EName,String EPwd,String ERol,String EBra) throws InterruptedException
+{
+	driver.findElement(By.xpath(Pr.getProperty("EmpBut"))).click();
+	driver.findElement(By.xpath(Pr.getProperty("NewEmpBut"))).click();
+	ExpResult ="New Employee Creation";
+	ActResult=driver.findElement(By.xpath(Pr.getProperty("EmpText"))).getText();
+	if(ExpResult.equalsIgnoreCase(ActResult))
+		{
+			System.out.println("Admin Employee Page Opened Successfully");
+		}
+		else
+		{
+			System.out.println("Admin Employee Page not Opened");
+		}
+	//Employee Creation
+	driver.findElement(By.xpath(Pr.getProperty("EmpName"))).sendKeys(EName);
+	driver.findElement(By.xpath(Pr.getProperty("EmpPwd"))).sendKeys(EPwd);
+	new Select(driver.findElement(By.xpath(Pr.getProperty("EmpRol")))).selectByVisibleText(ERol);
+	new Select(driver.findElement(By.xpath(Pr.getProperty("EmpBra")))).selectByVisibleText(EBra);
+	driver.findElement(By.xpath(Pr.getProperty("EmpSub"))).click();
+	Thread.sleep(3000);
+	ExpResult="Successfully";
+	ActResult =driver.switchTo().alert().getText();
+	if(ActResult.contains(ExpResult))
+	{
+		System.out.println("Employee Created");
+	}
+	else
+	{
+		System.out.println("Employee Already Exists");
+	}
+	driver.switchTo().alert().accept();
+	driver.findElement(By.xpath(Pr.getProperty("AHomeBut"))).click();
+	return ActResult;
+}
+public void Logout()
+{
+	driver.findElement(By.xpath(Pr.getProperty("Logout"))).click();
+}
+public void CloseApp()
+{
+	driver.close();
+}
+}

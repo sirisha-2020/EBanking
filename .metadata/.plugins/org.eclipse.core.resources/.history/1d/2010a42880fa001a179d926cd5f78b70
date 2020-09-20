@@ -1,0 +1,30 @@
+package mvnpackage;
+
+import java.io.FileInputStream;
+import java.util.Properties;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Samplemvn
+{
+	public static void main(String[] args)
+	{
+		System.setProperty("webdriver.gecko.driver", "C:\\Users\\SriramBabuRao\\Desktop\\LiveProject\\Jenkins\\geckodriver.exe");
+		Webdriver driver=new ChromeDriver();
+		//driver=new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get(URL);
+		String ExpResult="Ranford Bank";
+		String ActResult=driver.findElement(By.xpath(Pr.getProperty("AppText"))).getText();
+		if(ExpResult.equalsIgnoreCase(ActResult))
+		{
+			System.out.println("Ranford Home Page Opened Successfully");
+		}
+		else
+		{
+			System.out.println("Ranford Home Page not Opened");
+		}
+		return "Ranford Launched";
+	}
+}

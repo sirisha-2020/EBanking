@@ -1,0 +1,103 @@
+package com.EBanking.Master;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class Excel
+{
+	public static void main(String[] args) throws IOException, InterruptedException
+	{
+		System.setProperty("webdriver.gecko.driver", "C:\\Users\\SriramBabuRao\\Desktop\\LiveProject\\Jenkins\\geckodriver.exe");
+		Library Li=new Library();
+		Li.OpenApp("http://183.82.100.55/ranford2/");
+		Li.AdminLogin("Admin","M1ndq");
+		//To Get Test Data From Excel File
+		FileInputStream FIS=new FileInputStream("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\TestData\\EBanking.xlsx");
+		XSSFWorkbook WB=new XSSFWorkbook(FIS);
+		//Branch
+		XSSFSheet WS=WB.getSheet("BData");
+		int RC=WS.getLastRowNum();
+		System.out.println(RC);
+		for(int i=1;i<=RC;i++)
+		{
+			XSSFRow WR=WS.getRow(i);
+			XSSFCell WC=WR.getCell(0);
+			XSSFCell WC1=WR.getCell(1);
+			XSSFCell WC2=WR.getCell(2);
+			XSSFCell WC3=WR.getCell(3);
+			XSSFCell WC4=WR.getCell(4);
+			XSSFCell WC5=WR.getCell(5);
+			XSSFCell WC6=WR.getCell(6);
+			XSSFCell WC7=WR.getCell(7);
+			XSSFCell WC8=WR.getCell(8);
+			XSSFCell WC9=WR.createCell(9);
+			String BName=WC.getStringCellValue();
+			String Add1=WC1.getStringCellValue();
+			String Add2=WC2.getStringCellValue();
+			String Add3=WC3.getStringCellValue();
+			String Area=WC4.getStringCellValue();
+			String Zip=WC5.getStringCellValue();
+			String Ctry=WC6.getStringCellValue();
+			String Sta=WC7.getStringCellValue();
+			String City=WC8.getStringCellValue();
+			String Result=Li.BranchCreation(BName,Add1,Add2,Add3,Area,Zip,Ctry,Sta,City);
+			WC9.setCellValue(Result);
+		 }
+		FileOutputStream FOS=new FileOutputStream("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\Results\\Bra_Result.xlsx");
+		WB.write(FOS);
+		WB.close();
+		FileInputStream FIS1=new FileInputStream("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\TestData\\EBanking.xlsx");
+		XSSFWorkbook WB1=new XSSFWorkbook(FIS1);
+		XSSFSheet WS1=WB1.getSheet("RData");
+		int RC1=WS1.getLastRowNum();
+		System.out.println(RC1);
+		for(int i=1;i<=RC1;i++)
+		{
+			XSSFRow WR=WS1.getRow(i);
+			XSSFCell WC=WR.getCell(0);
+			XSSFCell WC1=WR.getCell(1);
+			XSSFCell WC2=WR.getCell(2);
+			XSSFCell WC3=WR.createCell(3);
+			String RName=WC.getStringCellValue();
+			String RDesc=WC1.getStringCellValue();
+			String RType=WC2.getStringCellValue();
+			String Result=Li.RoleCreation(RName, RDesc, RType);
+			WC3.setCellValue(Result);
+			}
+		FileOutputStream FOS1=new FileOutputStream("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\Results\\Rol_Result.xlsx");
+		WB1.write(FOS1);
+		WB1.close();
+		//Employee
+		FileInputStream FIS2=new FileInputStream("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\TestData\\EBanking.xlsx");
+		XSSFWorkbook WB2=new XSSFWorkbook(FIS2);
+		XSSFSheet WS2=WB2.getSheet("EData");
+		int RC2=WS2.getLastRowNum();
+		System.out.println(RC2);
+		for(int i=1;i<=RC2;i++)
+		{
+			XSSFRow WR=WS2.getRow(i);
+			XSSFCell WC=WR.getCell(0);
+			XSSFCell WC1=WR.getCell(1);
+			XSSFCell WC2=WR.getCell(2);
+			XSSFCell WC3=WR.getCell(3);
+			XSSFCell WC4=WR.createCell(4);
+			String EName=WC.getStringCellValue();
+			String EPwd=WC1.getStringCellValue();
+			String ERol=WC2.getStringCellValue();
+			String EBra=WC3.getStringCellValue();
+			String Result=Li.EmployeeCreation(EName,EPwd,ERol,EBra);
+			WC4.setCellValue(Result);
+		}
+		FileOutputStream FOS2=new FileOutputStream("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\Results\\Emp_Result.xlsx");
+		WB2.write(FOS2);
+		WB2.close();
+		Li.Logout();
+		Li.CloseApp();
+	}
+}

@@ -1,0 +1,106 @@
+package com.EBanking.Master;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class ExePomNotepad 
+{
+	WebDriver driver;
+	AdminHP AHP;
+	@BeforeTest
+	public void Launch()
+	{
+	driver=new FirefoxDriver();
+	driver.manage().window().maximize();
+	driver.get("http://183.82.100.55/ranford2");
+	}
+	@Test(priority=1)
+	public void Login()
+	{
+	RanfordHPArg RHP=PageFactory.initElements(driver, RanfordHPArg.class);
+	RHP.Login("Admin","M1ndq");
+	
+	}
+	@Test(priority=2)
+	public void AdminB() throws IOException
+	{
+	AHP=PageFactory.initElements(driver, AdminHP.class);
+	//To Execute the Branch Functionalities
+	AHP.Branch();	//Click on Branch Button
+	BranchHP BHP=PageFactory.initElements(driver, BranchHP.class);
+	BHP.NewBranch();    //Click on New Branch Button
+	NewBranchPageArg NBP=PageFactory.initElements(driver, NewBranchPageArg.class);
+	String SD;
+	//To get Test Data File 
+	FileReader FR=new FileReader("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\TestData\\Branch.txt");
+	BufferedReader BR=new BufferedReader(FR);
+	String Sread=BR.readLine();
+	System.out.println(Sread);
+	//Write the Header into the Result File
+	FileWriter FW=new FileWriter("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\Results\\BranchResult.txt");
+	BufferedWriter BW=new BufferedWriter(FW);
+	BW.write(Sread);
+	BW.newLine();	
+	while ((SD=BR.readLine())!=null)
+	{
+		String SR[]=SD.split("########");
+		String BName=SR[0];
+		String Add1=SR[1];
+		String Add2=SR[2];
+		String Add3=SR[3];
+		String Area=SR[4];
+		String Zip=SR[5];
+		String Ctry=SR[6];
+		String Sta=SR[7];
+		String City=SR[8];
+		String Result=NBP.BranchDetails(BName, Add1, Add2, Add3, Area, Zip, Ctry, Sta, City);    //Click on Submit Button after the details 
+		 driver.switchTo().alert().accept();
+		//Results
+		BW.write(SD+"@@@@@"+Result);
+		BW.newLine();
+		AHP.Home();
+	}
+	BW.close();
+	BR.close();
+	}
+//	@Test(priority=3)
+//	public void AdminR()
+//	{
+//	
+//	//To Execute the Role Functionalities
+//	AHP.Role(); 	//Click on Role Button
+//	RoleHP RoHP=PageFactory.initElements(driver, RoleHP.class);
+//	RoHP.NewRole();    //Click on New Role Button
+//	NewRolePageArg NRP=PageFactory.initElements(driver, NewRolePageArg.class);
+//	NRP.RoleDetails("TellerSep","CashCounter","E");   //Click on Submit Button after the details 
+//    driver.switchTo().alert().accept();
+//	}
+//	@Test(priority=4)
+//	public void AdminE()
+//	{
+//    AHP.Home();
+//    //To Execute the Employee Functionalities
+//  	AHP.Employee(); 	//Click on Employee Button
+//  	EmployeeHP EHP=PageFactory.initElements(driver, EmployeeHP.class);
+//  	EHP.NewEmployee();    //Click on New Employee Button
+//  	NewEmployeePageArg NEP=PageFactory.initElements(driver, NewEmployeePageArg.class);
+//  	NEP.EmployeeDetails("Taruni","Swapna","TellerSep","Lalakpet");   //Click on Submit Button after the details 
+//    driver.switchTo().alert().accept();
+//	}
+//	@AfterTest
+//	public void Close()
+//	{
+//	AHP.Logout();
+//	driver.close();
+//	}
+}

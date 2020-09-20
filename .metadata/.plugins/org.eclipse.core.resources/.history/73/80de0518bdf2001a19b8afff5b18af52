@@ -1,0 +1,29 @@
+package com.EBanking.Master;
+
+import java.io.FileInputStream;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class Keyword
+{
+	//To Get Test Data From Excel File
+	FileInputStream FIS=new FileInputStream("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\TestData\\KeywordData.xlsx");
+	XSSFWorkbook WB=new XSSFWorkbook(FIS);
+	//Get Data from TestCases and TestSteps of ExcelSheet
+	XSSFSheet WS=WB.getSheet("TestCases");
+	XSSFSheet WS1=WB.getSheet("TestSteps");
+	//Last Row Count of the Sheets
+	int TCRC=WS.getLastRowNum();
+	int TSRC=WS1.getLastRowNum();
+	for(int i=1;i<=TCRC;i++)
+	{
+		String Exe=WS.getRow(i).getCell(2).getStringCellValue();
+		if(Exe.equalsIgnoreCase("Y"))
+		{
+			String TCID=WS.getRow(i).getCell(0).getStringCellValue();
+			
+			
+		}
+	}
+}

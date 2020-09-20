@@ -1,0 +1,3 @@
+EmpName########EmpPwd########ERole########EBra########Result
+Satvika1########Sammika########ManagerAU########SanathNagar
+Anuradha1########Santoshi########ManagerAU########Somajipet

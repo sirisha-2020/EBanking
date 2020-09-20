@@ -1,0 +1,110 @@
+package com.EBanking.Master;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class ExePomDP 
+{
+	WebDriver driver;
+	AdminHP AHP;
+	BranchHP BHP;
+	NewBranchPageDP NBP;
+	RoleHP RoHP;
+	NewRolePageArg NRP;
+	EmployeeHP EHP;
+	NewEmployeePageArg NEP;
+	@BeforeTest
+	public void Launch()
+	{
+	driver=new FirefoxDriver();
+	driver.manage().window().maximize();
+	driver.get("http://183.82.100.55/ranford2");
+	}
+	@Test(priority=1)
+	public void Login()
+	{
+	RanfordHPArg RHP=PageFactory.initElements(driver, RanfordHPArg.class);
+	RHP.Login("Admin","M1ndq");
+	
+	}
+	@Test(priority=2)
+	public void AdminB()
+	{
+	AHP=PageFactory.initElements(driver, AdminHP.class);
+	//To Execute the Branch Functionalities
+	AHP.Branch();	//Click on Branch Button
+	BHP=PageFactory.initElements(driver, BranchHP.class);
+	BHP.NewBranch();    //Click on New Branch Button
+	NBP=PageFactory.initElements(driver, NewBranchPageDP.class);
+	NBP.BranchDetails(BName,Add1,Add2,Add3,Area,Zip,Ctry,Sta,City);   //Click on Submit Button after the details 
+    driver.switchTo().alert().accept();
+  }
+//	@Test(priority=3)
+//	public void AdminR()
+//	{
+//	AHP.Home();
+//	//To Execute the Role Functionalities
+//	AHP.Role(); 	//Click on Role Button
+//	RoleHP RoHP=PageFactory.initElements(driver, RoleHP.class);
+//	RoHP.NewRole();    //Click on New Role Button
+//	NewRolePageArg NRP=PageFactory.initElements(driver, NewRolePageArg.class);
+//	NRP.RoleDetails("TellerSep","CashCounter","E");   //Click on Submit Button after the details 
+//    driver.switchTo().alert().accept();
+//	}
+//	@Test(priority=4)
+//	public void AdminE()
+//	{
+//    AHP.Home();
+//    //To Execute the Employee Functionalities
+//  	AHP.Employee(); 	//Click on Employee Button
+//  	EmployeeHP EHP=PageFactory.initElements(driver, EmployeeHP.class);
+//  	EHP.NewEmployee();    //Click on New Employee Button
+//  	NewEmployeePageArg NEP=PageFactory.initElements(driver, NewEmployeePageArg.class);
+//  	NEP.EmployeeDetails("Taruni","Swapna","TellerSep","Lalakpet");   //Click on Submit Button after the details 
+//    driver.switchTo().alert().accept();
+//	}
+//	@AfterTest
+//	public void Close()
+//	{
+//	AHP.Logout();
+//	driver.close();
+//	}
+}
+@DataProvider
+public Object[][] BraData() 
+{
+	  Object[][] obj=new Object[3][9];
+	  obj[0][0]="NZMPTSBI1";
+	  obj[0][1]="NZMPT";
+	  obj[0][2]="Secunderabad";
+	  obj[0][3]="Santoshpur";
+	  obj[0][4]="SRNagar";
+	  obj[0][5]="50090";
+	  obj[0][6]="INDIA";
+	  obj[0][7]="GOA";
+	  obj[0][8]="GOA";
+	  obj[1][0]="NZMPTBOI1";
+	  obj[1][1]="NZMPT";
+	  obj[1][2]="Secunderabad";
+	  obj[1][3]="Santoshpur";
+	  obj[1][4]="SRNagar";
+	  obj[1][5]="50090";
+	  obj[1][6]="INDIA";
+	  obj[1][7]="GOA";
+	  obj[1][8]="GOA";
+	  obj[2][0]="NZMPTBOB1";
+	  obj[2][1]="NZMPT";
+	  obj[2][2]="Secunderabad";
+	  obj[2][3]="Santoshpur";
+	  obj[2][4]="SRNagar";
+	  obj[2][5]="50090";
+	  obj[2][6]="INDIA";
+	  obj[2][7]="GOA";
+	  obj[2][8]="GOA";
+	return obj;
+};

@@ -1,0 +1,27 @@
+package mvnpackage;
+
+import java.io.FileInputStream;
+import java.util.Properties;
+
+public class Samplemvn
+{
+	public static void main(String[] args)
+	{
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\SriramBabuRao\\Desktop\\LiveProject\\OpenSourceSoftwares\\chromedriver.exe");
+		Webdriver driver=new chrome
+		//driver=new FirefoxDriver();
+		driver.manage().window().maximize();
+		driver.get("http://183.82.100.55/ranford2/");
+		String ExpResult="Ranford Bank";
+		String ActResult=driver.findElement(By.xpath(Pr.getProperty("AppText"))).getText();
+		if(ExpResult.equalsIgnoreCase(ActResult))
+		{
+			System.out.println("Ranford Home Page Opened Successfully");
+		}
+		else
+		{
+			System.out.println("Ranford Home Page not Opened");
+		}
+		return "Ranford Launched";
+	}
+}

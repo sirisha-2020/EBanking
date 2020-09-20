@@ -1,0 +1,137 @@
+package mvnpackage;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
+
+public class Samplemvn
+{
+	public static void main(String[] args)
+	{
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\SriramBabuRao\\Desktop\\LiveProject\\OpenSourceSoftwares\\chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("http://183.82.100.55/ranford2/");
+		String ExpResult="Ranford Bank";
+		String ActResult=driver.findElement(By.xpath("/html[1]/body[1]/form[1]/table[1]/tbody[1]/tr[1]/td[1]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[1]/td[4]/p[1]/span[1]")).getText();
+		if(ExpResult.equalsIgnoreCase(ActResult))
+		{
+			System.out.println("Ranford Home Page Opened Successfully");
+		}
+		else
+		{
+			System.out.println("Ranford Home Page not Opened");
+		}
+		//Admin Login Credentials
+		driver.findElement(By.id("txtuId")).sendKeys("Admin");
+		driver.findElement(By.id("txtPword")).sendKeys("M1ndq");
+		driver.findElement(By.id("login")).click();
+		ExpResult ="Welcome to Admin";
+		ActResult=driver.findElement(By.xpath("//td[@class='headings style12']//strong//font//font")).getText();
+		if(ExpResult.equalsIgnoreCase(ActResult))
+		{
+			System.out.println("Admin Home Page Opened Successfully");
+		}
+		else
+		{
+			System.out.println("Admin Home Page not Opened");
+		}
+		driver.findElement(By.xpath(" //tr//tr//tr//tr//tr[2]//td[1]//a[1]//img[1]")).click();
+		driver.findElement(By.xpath("//input[@id='BtnNewBR']")).click();
+		ExpResult ="New Branch Entry";
+		ActResult=driver.findElement(By.xpath("/html[1]/body[1]/div[1]/form[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/span[1]")).getText();
+		if(ExpResult.equalsIgnoreCase(ActResult))
+		{
+			System.out.println("Admin Branch Page Opened Successfully");
+		}
+		else
+		{
+			System.out.println("Admin Branch Page not Opened");
+		}
+		//Branch Creation
+		driver.findElement(By.xpath("//input[@id='txtbName']")).sendKeys("Anantha12");
+		driver.findElement(By.xpath("//input[@id='txtAdd1']")).sendKeys("SriramNagar");
+		driver.findElement(By.xpath("//input[@id='Txtadd2']")).sendKeys("Sanivarapupeta");
+		driver.findElement(By.xpath("//input[@id='txtadd3']")).sendKeys("Near College");
+		driver.findElement(By.xpath("//input[@id='txtArea']")).sendKeys("Nizampet");
+		driver.findElement(By.xpath("//input[@id='txtZip']")).sendKeys("50090");
+		Select Cntry=new Select(driver.findElement(By.xpath("//select[@id='lst_counrtyU']")));
+		Cntry.selectByVisibleText("INDIA");
+		new Select(driver.findElement(By.xpath("//select[@id='lst_stateI']"))).selectByVisibleText("GOA");
+		new Select(driver.findElement(By.xpath("//select[@id='lst_cityI']"))).selectByVisibleText("GOA");
+		driver.findElement(By.xpath("//input[@id='btn_insert']")).click();
+		ExpResult="Sucessfully";
+		ActResult =driver.switchTo().alert().getText();
+		if(ActResult.contains(ExpResult))
+		{
+			System.out.println("Branch Created");
+		}
+		else
+		{
+			System.out.println("Branch Already Exists");
+		}
+		driver.switchTo().alert().accept();
+		driver.findElement(By.xpath("//table[@id='Table_01']//td[1]//a[1]//img[1]")).click();
+		driver.findElement(By.xpath("//tr//tr//tr[4]//td[1]//a[1]//img[1]")).click();
+		driver.findElement(By.xpath("//input[@id='btnRoles']")).click();
+		ExpResult ="New Role Insertion";
+		ActResult=driver.findElement(By.xpath("/html[1]/body[1]/div[1]/form[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/span[1]")).getText();
+		if(ExpResult.equalsIgnoreCase(ActResult))
+		{
+			System.out.println("Admin Role Page Opened Successfully");
+		}
+		else
+		{
+			System.out.println("Admin Role Page not Opened");
+		}
+		//Role Creation
+		driver.findElement(By.xpath("//input[@id='txtRname']")).sendKeys("TestAppD");
+		driver.findElement(By.xpath("//input[@id='txtRDesc']")).sendKeys("Test Application");
+		new Select(driver.findElement(By.xpath("//select[@id='lstRtypeN']"))).selectByVisibleText("E");
+		driver.findElement(By.xpath("//input[@id='btninsert']")).click();
+		ExpResult="Sucessfully";
+		ActResult =driver.switchTo().alert().getText();
+		if(ActResult.contains(ExpResult))
+		{
+			System.out.println("Role Created");
+		}
+		else
+		{
+			System.out.println("Role Already Exists");
+		}
+		driver.switchTo().alert().accept();
+		driver.findElement(By.xpath("//table[@id='Table_01']//td[1]//a[1]//img[1]")).click();
+		driver.findElement(By.xpath("//tr[8]//td[1]//a[1]//img[1]")).click();
+		driver.findElement(By.xpath("//input[@id='BtnNew']")).click();
+		ExpResult ="New Employee Creation";
+		ActResult=driver.findElement(By.xpath("/html[1]/body[1]/div[1]/form[1]/div[1]/table[1]/tbody[1]/tr[1]/td[1]/span[1]")).getText();
+		if(ExpResult.equalsIgnoreCase(ActResult))
+			{
+				System.out.println("Admin Employee Page Opened Successfully");
+			}
+			else
+			{
+				System.out.println("Admin Employee Page not Opened");
+			}
+		//Employee Creation
+		driver.findElement(By.xpath("//input[@id='txtUname']")).sendKeys("Swapna7");
+		driver.findElement(By.xpath("//input[@id='txtLpwd']")).sendKeys("123456");
+		new Select(driver.findElement(By.xpath("//select[@id='lst_Roles']"))).selectByVisibleText("Tester");
+		new Select(driver.findElement(By.xpath("//select[@id='lst_Branch']"))).selectByVisibleText("1234");
+		driver.findElement(By.xpath("//input[@id='BtnSubmit']")).click();
+		ExpResult="Successfully";
+		ActResult =driver.switchTo().alert().getText();
+		if(ActResult.contains(ExpResult))
+		{
+			System.out.println("Employee Created");
+		}
+		else
+		{
+			System.out.println("Employee Already Exists");
+		}
+		driver.switchTo().alert().accept();
+		driver.findElement(By.xpath("//td//td//td//td[3]//a[1]//img[1]")).click();
+		driver.close();
+	}
+}

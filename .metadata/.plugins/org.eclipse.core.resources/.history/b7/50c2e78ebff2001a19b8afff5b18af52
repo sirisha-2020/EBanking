@@ -1,0 +1,60 @@
+package com.EBanking.Master;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+public class Keyword
+{
+	Library Li=new Library();
+	//To Get Test Data From Excel File
+	FileInputStream FIS=new FileInputStream("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\TestData\\KeywordData.xlsx");
+	XSSFWorkbook WB=new XSSFWorkbook(FIS);
+	//Get Data from TestCases and TestSteps of ExcelSheet
+	XSSFSheet WS=WB.getSheet("TestCases");
+	XSSFSheet WS1=WB.getSheet("TestSteps");
+	//Last Row Count of the Sheets
+	int TCRC=WS.getLastRowNum();
+	System.out.println(TCRC);
+	int TSRC=WS.getLastRowNum();
+	System.out.println(TSRC);
+	for(int i=1;i<=TCRC;i++)
+	{
+		String Exe=WS.getRow(i).getCell(2).getStringCellValue();
+		if(Exe.equalsIgnoreCase("Y"))
+		{
+			String TCID=WS.getRow(i).getCell(0).getStringCellValue();
+			for(int j=1;j<=TSRC;i++)
+			{
+				String TSTCID=WS1.getRow(j).getCell(0).getStringCellValue();
+				if(TSTCID.equalsIgnoreCase(TCID))
+				{
+					String Key=WS1.getRow(j).getCell(3).getStringCellValue();
+					switch(Key)
+					{
+					case "RLaunch":Li.OpenApp("http://183.82.100.55/ranford2/");
+									break;
+					case "RLogin":Li.AdminLogin("Admin","M1ndq");
+									break;
+					case "RBranch":Li.BranchCreation("Ananthapuram","Sriram Nager","Sanivararapupet","Bank Colony","Nizampet","50090","INDIA","GOA","GOA");
+									break;
+					case "RRole":Li.RoleCreation("TestApp","Testing Application","E");
+									break;
+					case "REmp":Li.EmployeeCreation("Swapna32","1234567","Tester","Amberpet");
+								break;
+					case "RLogout":Li.Logout();
+									break;
+					case "RClose":Li.CloseApp();
+									break;
+					default:System.out.println("Pass a Valid Keyword");
+					}
+				}
+			}
+		}
+	}
+	FileOutputStream FOS=new FileOutputStream("C:\\Users\\SriramBabuRao\\Project-WorkSpace\\EBanking\\src\\com\\EBanking\\Results\\Keyword_Result.xlsx");
+	WB.write(FOS);
+	WB.close();
+}
